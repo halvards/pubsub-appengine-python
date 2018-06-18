@@ -1,4 +1,4 @@
-# pubsub-appengine-python [![Build Status](https://circleci.com/gh/halvards/pubsub-appengine-python.svg?style=svg)]
+# pubsub-appengine-python [![CircleCI](https://circleci.com/gh/halvards/pubsub-appengine-python.svg?style=svg)](https://circleci.com/gh/halvards/pubsub-appengine-python)
 
 This repository contains sample code that demonstrates how to build a
 [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/overview) client

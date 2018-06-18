@@ -45,20 +45,32 @@ jobs:
             if [ -n "$ENCODED_CREDENTIALS" ]; then
               echo $ENCODED_CREDENTIALS | base64 --decode > credentials.json
             else
-              echo "No credentials supplied. Tests will fail."
+              echo "No credentials supplied. Skipping tests."
+              /bin/false
             fi
       - run:
           name: run tests
           command: |
-            source env/bin/activate
-            ./generate-compatibility-tests.sh
-            export GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/credentials.json
-            python -m unittest discover | sed s/${GOOGLE_CLOUD_PROJECT}/PROJECT_ID/g
+            if [ -n "$GOOGLE_CLOUD_PROJECT" ]; then
+              source env/bin/activate
+              ./generate-compatibility-tests.sh
+              export GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/credentials.json
+              python -m unittest discover | sed s/${GOOGLE_CLOUD_PROJECT}/PROJECT_ID/g
+            else
+              echo "GOOGLE_CLOUD_PROJECT environment variable missing. Skipping tests."
+              /bin/false
+            fi
 workflows:
   version: 2
+  commit:
+    jobs:
+      - build
   nightly:
-     triggers:
-       - schedule:
-           cron: "0 0 * * *"
-     jobs:
-       - build
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+             only: master
+    jobs:
+      - build

@@ -27,7 +27,7 @@ jobs:
           keys:
           - v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
-          name: install dependencies
+          name: Install Dependencies
           command: |
             virtualenv -p python2.7 env
             source env/bin/activate
@@ -43,7 +43,7 @@ jobs:
             pip install -r requirements-dev.txt
             flake8 pubsub_client/ tests/
       - run:
-          name: Decode credentials
+          name: Decode Credentials
           command: |
             if [ -n "$ENCODED_CREDENTIALS" ]; then
               echo $ENCODED_CREDENTIALS | base64 --decode > credentials.json
@@ -52,7 +52,7 @@ jobs:
               /bin/false
             fi
       - run:
-          name: run tests
+          name: Run Tests
           command: |
             if [ -n "$GOOGLE_CLOUD_PROJECT" ]; then
               source env/bin/activate

@@ -63,10 +63,11 @@ To run the tests, first set up a Python Virtual Environment:
     
 Next, install the dependencies:
 
-    pip install -r requirements.txt -r requirements-dev.txt
+    pip install -r requirements.txt
 
-Optionally, run lint checks using this command:
+Optionally, run lint checks:
 
+    pip install -r requirements-dev.txt
     flake8 pubsub_client/ tests/
 
 If you want to test compatibility with the Google Cloud Client Libraries for

@@ -18,7 +18,7 @@ set -euo pipefail
 
 echo 'Generating source for running the same tests with the google-cloud-pubsub client library'
 
-pip install -I google-cloud-pubsub=="$(curl -Ls https://pypi.org/pypi/google-cloud-pubsub/json | jq -r '.info.version')" > /dev/null
+pip install -I google-cloud-pubsub==1.7.0 > /dev/null
 
 sed 's/import pubsub_client as pubsub/from google.cloud import pubsub/' tests/test_pubsub_client.py > tests/test_google_cloud_pubsub_generated.py
 
